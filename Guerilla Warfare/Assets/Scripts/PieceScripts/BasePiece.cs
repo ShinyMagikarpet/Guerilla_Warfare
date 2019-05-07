@@ -29,5 +29,19 @@ public abstract class BasePiece : EventSystem
         transform.position = mCurrentCell.transform.position;
     }
 
+    public void OnDragBegin(PointerEventData eventData) {
+        //Highlight the spaces that the piece can move to
+        Debug.Log("Picked up piece");
+    }
+
+    public void OnDrag(PointerEventData eventData) {
+        //Move the Piece
+        Debug.Log("Moving piece");
+        transform.position = (Vector3)eventData.position;
+    }
+
+    public void OnDragEnd(PointerEventData eventData) {
+        //Place the piece on the cell
+    }
 
 }

@@ -35,13 +35,13 @@ public class GameManager : MonoBehaviour
     {
         while (mIsPlayerOneSetting)
         {
-            Debug.Log("Player one is setting up his board");
+            //Debug.Log("Player one is setting up his board");
             yield return null;
         }
 
         while (mIsPlayerTwoSetting)
         {
-            Debug.Log("Player two is setting up his board");
+            //Debug.Log("Player two is setting up his board");
             yield return null;
         }
     }
@@ -50,10 +50,10 @@ public class GameManager : MonoBehaviour
     {
         
         while (mIsPlaying) {
-            Debug.Log("Game is currently playing");
+            //Debug.Log("Game is currently playing");
             yield return null;
         }
-        Debug.Log("Game is done");
+        //Debug.Log("Game is done");
     }
 
     // Update is called once per frame

@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class PieceManager : MonoBehaviour
+public class PieceManager : MonoBehaviour, IPointerClickHandler
 {
 
     List<BasePiece> mRedPieces;
@@ -12,11 +13,17 @@ public class PieceManager : MonoBehaviour
     public GameObject mWizardPiece;
     public GameObject mKingPiece;
     public GameObject mBarricadePiece;
+    [HideInInspector]
     public Color mPlayerColor;
 
 
+    public void OnPointerClick(PointerEventData eventData) {
 
-    
+        Debug.Log("Fucker");
+
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {

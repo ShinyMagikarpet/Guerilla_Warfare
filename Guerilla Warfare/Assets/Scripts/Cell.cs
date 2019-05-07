@@ -20,6 +20,11 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
         mRectTransform = GetComponent<RectTransform>();
     }
+
+    public void Place_Piece(GameObject newPiece) {
+        mCurrentPiece = Instantiate(mCurrentPiece, transform);
+        mCurrentPiece.GetComponent<RectTransform>().position = mRectTransform.position;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +39,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void OnPointerEnter(PointerEventData eventData) {
         mOutlineImage.gameObject.SetActive(true);
-        Debug.Log(gameObject.name);
+        //Debug.Log(gameObject.name);
     }
 
     public void OnPointerExit(PointerEventData eventData) {
@@ -43,14 +48,12 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void OnPointerClick(PointerEventData eventData) {
 
-        if(mBoardPosition.y > 3) {
+        if (mBoardPosition.y > 3) {
             Debug.Log("This is not your territory");
         } else {
             mCurrentPiece = Instantiate(mCurrentPiece, transform);
             mCurrentPiece.GetComponent<RectTransform>().position = mRectTransform.position;
         }
-            
-        
-        
+
     }
 }
