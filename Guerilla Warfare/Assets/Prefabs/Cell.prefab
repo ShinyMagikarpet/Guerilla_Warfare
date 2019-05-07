@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.013520718, b: 1, a: 1}
+  m_Color: {r: 0.3490566, g: 0.21302718, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -166,5 +166,6 @@ MonoBehaviour:
   mBoardPosition: {x: 0, y: 0}
   mBoard: {fileID: 0}
   mRectTransform: {fileID: 0}
-  mCurrentPiece: {fileID: 8203494890885584590, guid: 20360013c97c6ed46b95c291a3dbcf16,
+  mCurrentPiece: {fileID: 0}
+  mPieceManager: {fileID: 1701637566139052312, guid: eec4b86fd6772d54a8f4f9e143275bc2,
     type: 3}

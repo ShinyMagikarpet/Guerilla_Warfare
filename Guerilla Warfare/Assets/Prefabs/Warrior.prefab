@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9130405838848286488}
   - component: {fileID: 9130405838848286491}
   - component: {fileID: 8203494890885584590}
+  - component: {fileID: 6333268149411571848}
   m_Layer: 5
   m_Name: Warrior
   m_TagString: Untagged
@@ -91,3 +92,29 @@ MonoBehaviour:
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
   mPieceColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!61 &6333268149411571848
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9130405838848286485}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0

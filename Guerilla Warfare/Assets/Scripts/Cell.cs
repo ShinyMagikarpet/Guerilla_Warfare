@@ -12,7 +12,8 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     public Vector2Int mBoardPosition = Vector2Int.zero;
     public Board mBoard = null;
     public RectTransform mRectTransform = null;
-    public BasePiece mCurrentPiece;
+    public BasePiece mCurrentPiece = null;
+    public PieceManager mPieceManager;
 
     public void Setup_Cell(Vector2Int newBoardPosition, Board newBoard) {
         mBoard = newBoard;
@@ -48,10 +49,18 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void OnPointerClick(PointerEventData eventData) {
 
-        if (mBoardPosition.y > 3) {
-            Debug.Log("This is not your territory");
-        } else {
-            mCurrentPiece = Instantiate(mCurrentPiece, transform);
+        if(mCurrentPiece != null) {
+            Debug.Log("This cell already contains a piece");
+            return;
+        }
+
+        if (mBoardPosition.y < 4) {
+            mPieceManager.Place_Piece(this);
+            mCurrentPiece.GetComponent<Image>().color = Color.blue;
+            mCurrentPiece.GetComponent<RectTransform>().position = mRectTransform.position;
+        } else if(mBoardPosition.y > 7) {
+            mPieceManager.Place_Piece(this);
+            mCurrentPiece.GetComponent<Image>().color = Color.red;
             mCurrentPiece.GetComponent<RectTransform>().position = mRectTransform.position;
         }
 

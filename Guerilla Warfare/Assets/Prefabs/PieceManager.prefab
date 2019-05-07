@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54fd4ba73d3b3fc4a98d074651551324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mWarriorPiece: {fileID: 9130405838848286485, guid: 20360013c97c6ed46b95c291a3dbcf16,
+  mWarriorPiece: {fileID: 8203494890885584590, guid: 20360013c97c6ed46b95c291a3dbcf16,
     type: 3}
   mArcherPiece: {fileID: 0}
   mWizardPiece: {fileID: 0}

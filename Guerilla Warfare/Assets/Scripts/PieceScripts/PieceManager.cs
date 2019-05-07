@@ -3,26 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PieceManager : MonoBehaviour, IPointerClickHandler
+public class PieceManager : MonoBehaviour
 {
 
     List<BasePiece> mRedPieces;
     List<BasePiece> mBluePieces;
-    public GameObject mWarriorPiece;
-    public GameObject mArcherPiece;
-    public GameObject mWizardPiece;
-    public GameObject mKingPiece;
-    public GameObject mBarricadePiece;
+    public BasePiece mWarriorPiece;
+    public BasePiece mArcherPiece;
+    public BasePiece mWizardPiece;
+    public BasePiece mKingPiece;
+    public BasePiece mBarricadePiece;
     [HideInInspector]
     public Color mPlayerColor;
 
-
-    public void OnPointerClick(PointerEventData eventData) {
-
-        Debug.Log("Fucker");
-
+    public void Place_Piece(Cell cell) {
+        cell.mCurrentPiece =  Instantiate(mWarriorPiece, cell.transform);
+        Debug.Log("Instantiated piece???");
     }
-
 
     // Start is called before the first frame update
     void Start()
