@@ -27,7 +27,7 @@ public class Board : MonoBehaviour
                 mAllCells[x, y] = newCell.GetComponent<Cell>();
                 mAllCells[x, y].Setup_Cell(new Vector2Int(x, y), this);
                 mAllCells[x, y].name = colomnLetter.ToString() + rowNum.ToString();
-                Debug.Log(mAllCells[x, y].name);
+                //Debug.Log(mAllCells[x, y].name);
 
             }
 

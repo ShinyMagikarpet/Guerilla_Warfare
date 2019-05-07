@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PieceManager : MonoBehaviour
 {
-
-    protected List<BasePiece> mRedPieces = new List<BasePiece>();
-    protected List<BasePiece> mBluePieces = new List<BasePiece>();
+    [SerializeField]
+    public List<BasePiece> mRedPieces = null;
+    [SerializeField]
+    public List<BasePiece> mBluePieces = null;
     public BasePiece mWarriorPiece;
     public BasePiece mArcherPiece;
     public BasePiece mWizardPiece;
@@ -16,13 +18,17 @@ public class PieceManager : MonoBehaviour
     [HideInInspector]
     public Color mPlayerColor;
 
-    public void Place_Piece(Cell cell, Color teamColor) {
+    public void Place_Piece(Cell cell, Color teamColor, Color32 spriteColor, PieceManager pieceManager) {
         int count = 0;
         cell.mCurrentPiece =  Instantiate(mWarriorPiece, cell.transform);
+        cell.mCurrentPiece.Setup_Piece(teamColor, spriteColor, this);
         if (teamColor == Color.red) {
             //TODO: keep track how many of piece type have been instanciated
-        } else {
-
+            mRedPieces.Add(cell.mCurrentPiece);
+            Debug.Log(mRedPieces.Count);
+        } else if(teamColor == Color.blue){
+            mBluePieces.Add(cell.mCurrentPiece);
+            Debug.Log(mBluePieces.Count);
         }
             
     }
@@ -48,6 +54,10 @@ public class PieceManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    private void OnApplicationQuit() {
         
     }
 }

@@ -55,13 +55,9 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         }
 
         if (mBoardPosition.y < 4) {
-            mPieceManager.Place_Piece(this, Color.blue);
-            mCurrentPiece.GetComponent<Image>().color = Color.blue;
-            mCurrentPiece.GetComponent<RectTransform>().position = mRectTransform.position;
+            mPieceManager.Place_Piece(this, Color.blue, new Color32(0, 0, 255, 255), mPieceManager);
         } else if(mBoardPosition.y > 7) {
-            mPieceManager.Place_Piece(this, Color.red);
-            mCurrentPiece.GetComponent<Image>().color = Color.red;
-            mCurrentPiece.GetComponent<RectTransform>().position = mRectTransform.position;
+            mPieceManager.Place_Piece(this, Color.red, new Color32(255, 0, 0, 255), mPieceManager);
         }
 
     }
