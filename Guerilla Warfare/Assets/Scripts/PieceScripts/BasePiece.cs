@@ -11,6 +11,8 @@ public abstract class BasePiece : MonoBehaviour
     RectTransform mRectTransform;
     public Color mPieceColor;
     protected PieceManager mPieceManager;
+    [HideInInspector]
+    public int mMaxNum; /*< Maximum number of a piece that is allowed */
 
     public virtual void Setup_Piece(Color teamColor, Color32 spriteColor, PieceManager pieceManager) {
 
@@ -27,6 +29,10 @@ public abstract class BasePiece : MonoBehaviour
         mCurrentCell.mCurrentPiece = this;
         
         transform.position = mCurrentCell.transform.position;
+    }
+
+    public void Set_Max_Count(int num) {
+        this.mMaxNum = num;
     }
 
     public void OnDragBegin(PointerEventData eventData) {

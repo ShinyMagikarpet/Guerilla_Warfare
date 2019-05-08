@@ -6,12 +6,16 @@ public class GameManager : MonoBehaviour
 {
 
     public Board mBoard;
-
     public PieceManager mPieceManager;
 
-    private bool mIsPlaying = false;
-    private bool mIsPlayerOneSetting = true;
-    private bool mIsPlayerTwoSetting = true;
+    private BasePiece mSelectedPiece;
+
+
+    private bool IsPlayerSetting(List<BasePiece> basePieces) {
+
+        //There should be 26 pieces in total
+        return basePieces.Count < 26;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -34,13 +38,15 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SetupPhase()
     {
-        while (mIsPlayerOneSetting)
+        //Check if red player is setting up board
+        while (IsPlayerSetting(mPieceManager.mRedPieces))
         {
             //Debug.Log("Player one is setting up his board");
             yield return null;
         }
 
-        while (mIsPlayerTwoSetting)
+        //Check if Blue player is setting up board
+        while (IsPlayerSetting(mPieceManager.mBluePieces))
         {
             //Debug.Log("Player two is setting up his board");
             yield return null;
@@ -49,8 +55,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GamePlaying()
     {
-        
-        while (mIsPlaying) {
+
+        while (1 > 0) {
             //Debug.Log("Game is currently playing");
             yield return null;
         }
@@ -60,13 +66,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (mIsPlayerOneSetting)
-                mIsPlayerOneSetting = false;
-            else if (mIsPlayerTwoSetting)
-                mIsPlayerTwoSetting = false;
-        }
+        
     }
 
 

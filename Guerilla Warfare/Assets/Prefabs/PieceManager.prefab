@@ -47,8 +47,12 @@ MonoBehaviour:
   mBluePieces: []
   mWarriorPiece: {fileID: 8203494890885584590, guid: 20360013c97c6ed46b95c291a3dbcf16,
     type: 3}
-  mArcherPiece: {fileID: 0}
-  mWizardPiece: {fileID: 0}
-  mKingPiece: {fileID: 0}
-  mBarricadePiece: {fileID: 0}
+  mArcherPiece: {fileID: 5668908984606204979, guid: ab37e3d7bdcbad7439a3c3f772bc037b,
+    type: 3}
+  mWizardPiece: {fileID: 6455910187744328364, guid: 9bc6e641ebb9db64193ededca7a1c167,
+    type: 3}
+  mKingPiece: {fileID: 8001162672959848481, guid: ddf1fa5d1246c304e99bb7b3c57dce45,
+    type: 3}
+  mBarricadePiece: {fileID: 2889664728569495093, guid: dfb4278a9fbef30478d92c851596b76f,
+    type: 3}
   mPlayerColor: {r: 0, g: 0, b: 0, a: 0}
