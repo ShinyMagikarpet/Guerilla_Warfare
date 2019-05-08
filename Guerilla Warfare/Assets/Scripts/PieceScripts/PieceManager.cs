@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class PieceManager : MonoBehaviour
 {
     [SerializeField]
-    public List<BasePiece> mRedPieces = null;
+    private List<BasePiece> mRedPieces = null;
     [SerializeField]
-    public List<BasePiece> mBluePieces = null;
+    private List<BasePiece> mBluePieces = null;
     public BasePiece mWarriorPiece;
     public BasePiece mArcherPiece;
     public BasePiece mWizardPiece;
@@ -20,35 +20,43 @@ public class PieceManager : MonoBehaviour
 
     public void Place_Piece(Cell cell, Color teamColor, Color32 spriteColor, PieceManager pieceManager) {
         int count = 0;
-        cell.mCurrentPiece =  Instantiate(mWarriorPiece, cell.transform);
-        cell.mCurrentPiece.Setup_Piece(teamColor, spriteColor, this);
+        //cell.mCurrentPiece =  Instantiate(mWarriorPiece, cell.transform);
+        BasePiece newPiece = mWarriorPiece;
         if (teamColor == Color.red) {
             //TODO: keep track how many of piece type have been instanciated
-            mRedPieces.Add(cell.mCurrentPiece);
-            Debug.Log(mRedPieces.Count);
+            count = Get_Piece_Count(mRedPieces, mWarriorPiece);
+            if(count >= 5) {
+                Debug.Log("You have maximum amount of this piece");
+                return;
+            }
+            mRedPieces.Add(newPiece);
         } else if(teamColor == Color.blue){
-            mBluePieces.Add(cell.mCurrentPiece);
-            Debug.Log(mBluePieces.Count);
+            count = Get_Piece_Count(mBluePieces, mWarriorPiece);
+            if (count >= 5) {
+                Debug.Log("You have maximum amount of this piece");
+                Destroy(cell.mCurrentPiece);
+                return;
+            }
+            mBluePieces.Add(newPiece);
         }
-            
+        cell.mCurrentPiece = Instantiate(newPiece, cell.transform);
+        cell.mCurrentPiece.Setup_Piece(teamColor, spriteColor, this);
+
     }
 
     private int Get_Piece_Count(List<BasePiece> listPieces, BasePiece pieceType) {
         int count = 0;
         foreach(BasePiece piece in listPieces) {
-            Debug.Log("Piece Name: " + piece.name);
-            Debug.Log("Piece Type: " + pieceType.name);
-            if (piece.transform.name == pieceType.transform.name)
+            if (piece.GetType() == pieceType.GetType())
                 count++;
         }
-
         return count;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame

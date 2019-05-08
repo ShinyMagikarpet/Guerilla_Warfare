@@ -7,10 +7,13 @@ public class Board : MonoBehaviour
 {
 
     public GameObject mCellPrefab;
+    public PieceManager mPieceManager;
 
     public Cell[,] mAllCells = new Cell[12, 12];
 
-    public void Create() {
+    public void Create(PieceManager pieceManager) {
+
+        mPieceManager = pieceManager;
         char colomnLetter = 'A';
         int rowNum;
 
@@ -25,7 +28,7 @@ public class Board : MonoBehaviour
                 rectTRansform.anchoredPosition = new Vector2((x * 100) + 50, (y * 100) + 50);
 
                 mAllCells[x, y] = newCell.GetComponent<Cell>();
-                mAllCells[x, y].Setup_Cell(new Vector2Int(x, y), this);
+                mAllCells[x, y].Setup_Cell(new Vector2Int(x, y), this, mPieceManager);
                 mAllCells[x, y].name = colomnLetter.ToString() + rowNum.ToString();
                 //Debug.Log(mAllCells[x, y].name);
 

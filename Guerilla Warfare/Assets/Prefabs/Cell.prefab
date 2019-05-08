@@ -167,5 +167,4 @@ MonoBehaviour:
   mBoard: {fileID: 0}
   mRectTransform: {fileID: 0}
   mCurrentPiece: {fileID: 0}
-  mPieceManager: {fileID: 1701637566139052312, guid: eec4b86fd6772d54a8f4f9e143275bc2,
-    type: 3}
+  mPieceManager: {fileID: 0}

@@ -13,13 +13,14 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     public Board mBoard = null;
     public RectTransform mRectTransform = null;
     public BasePiece mCurrentPiece = null;
-    public PieceManager mPieceManager;
+    [SerializeField]
+    protected PieceManager mPieceManager;
 
-    public void Setup_Cell(Vector2Int newBoardPosition, Board newBoard) {
+    public void Setup_Cell(Vector2Int newBoardPosition, Board newBoard, PieceManager pieceManager) {
         mBoard = newBoard;
         mBoardPosition = newBoardPosition;
-
         mRectTransform = GetComponent<RectTransform>();
+        mPieceManager = pieceManager;
     }
 
     public void Place_Piece(GameObject newPiece) {

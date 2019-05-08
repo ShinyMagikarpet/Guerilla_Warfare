@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public abstract class BasePiece : EventSystem
+public abstract class BasePiece : MonoBehaviour
 {
 
     Cell mCurrentCell;
     RectTransform mRectTransform;
     public Color mPieceColor;
-    PieceManager mPieceManager;
+    protected PieceManager mPieceManager;
 
     public virtual void Setup_Piece(Color teamColor, Color32 spriteColor, PieceManager pieceManager) {
 
