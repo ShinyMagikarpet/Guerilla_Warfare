@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public abstract class BasePiece : MonoBehaviour
+public abstract class BasePiece : EventSystem, IDragHandler
 {
 
     Cell mCurrentCell;
@@ -35,15 +35,17 @@ public abstract class BasePiece : MonoBehaviour
         this.mMaxNum = num;
     }
 
-    public void OnDragBegin(PointerEventData eventData) {
+    
+
+    public void OnBeingDrag(PointerEventData eventData) {
         //Highlight the spaces that the piece can move to
         Debug.Log("Picked up piece");
     }
 
     public void OnDrag(PointerEventData eventData) {
         //Move the Piece
-        Debug.Log("Moving piece");
-        transform.position = (Vector3)eventData.position;
+        
+        transform.position = eventData.position;
     }
 
     public void OnDragEnd(PointerEventData eventData) {

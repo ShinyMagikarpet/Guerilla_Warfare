@@ -39,8 +39,11 @@ public class PieceManager : MonoBehaviour
             }
             mBluePieces.Add(mSelectedPiece);
         }
-        cell.mCurrentPiece = Instantiate(mSelectedPiece, cell.transform);
-        cell.mCurrentPiece.Setup_Piece(teamColor, spriteColor, this);
+        BasePiece newPiece = Instantiate(mSelectedPiece, transform);
+        //cell.mCurrentPiece = Instantiate(mSelectedPiece, transform);
+        newPiece.Setup_Piece(teamColor, spriteColor, this);
+        newPiece.Place_Piece(cell);
+
 
     }
 
@@ -83,8 +86,8 @@ public class PieceManager : MonoBehaviour
     {
 
         //Set the max number of allowed 
-        mWarriorPiece.Set_Max_Count(5);
-        mArcherPiece.Set_Max_Count(5);
+        mWarriorPiece.Set_Max_Count(6);
+        mArcherPiece.Set_Max_Count(6);
         mWizardPiece.Set_Max_Count(3);
         mKingPiece.Set_Max_Count(1);
         mBarricadePiece.Set_Max_Count(10);

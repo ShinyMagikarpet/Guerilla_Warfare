@@ -38,19 +38,22 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SetupPhase()
     {
+        Debug.Log("Red player is setting");
         //Check if red player is setting up board
         while (IsPlayerSetting(mPieceManager.mRedPieces))
         {
             //Debug.Log("Player one is setting up his board");
             yield return null;
         }
-
+        Debug.Log("Red player has finished setting");
+        Debug.Log("Blue player has started setting");
         //Check if Blue player is setting up board
         while (IsPlayerSetting(mPieceManager.mBluePieces))
         {
             //Debug.Log("Player two is setting up his board");
             yield return null;
         }
+        Debug.Log("Blue Player has finished setting");
     }
 
     private IEnumerator GamePlaying()
