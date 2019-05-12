@@ -10,11 +10,62 @@ public class GameManager : MonoBehaviour
 
     private BasePiece mSelectedPiece;
 
+    private int mBluePlayerMana;
+    private int mRedPlayerMana;
+
+    private string mWinnerMessage;
+
 
     private bool IsPlayerSetting(List<BasePiece> basePieces) {
 
         //There should be 26 pieces in total
         return basePieces.Count < 26;
+    }
+
+    private bool IsOneKingAlive() {
+
+        King king;
+        int aliveCount = 0;
+
+        foreach(BasePiece piece in mPieceManager.mBluePieces) {
+
+            if(piece.GetType() == typeof(King)) {
+
+                king = (King)piece;
+                if (king.mIsAlive)
+                    aliveCount++;
+                else {
+                    mWinnerMessage = "Red has won!";
+                    break;
+                }
+                    
+                
+
+            }
+
+        }
+
+        foreach (BasePiece piece in mPieceManager.mRedPieces) {
+
+            if (piece.GetType() == typeof(King)) {
+
+                king = (King)piece;
+                if (king.mIsAlive)
+                    aliveCount++;
+                else {
+                    mWinnerMessage = "Blue has won!";
+                    break;
+                }
+                    
+
+
+            }
+
+        }
+
+        return aliveCount < 2;
+
+
     }
 
     // Start is called before the first frame update
@@ -38,38 +89,45 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SetupPhase()
     {
-        Debug.Log("Red player is setting");
+
+        //TODO: Create NML here
+
+        //Debug.Log("Red player is setting");
         //Check if red player is setting up board
         while (IsPlayerSetting(mPieceManager.mRedPieces))
         {
             //Debug.Log("Player one is setting up his board");
             yield return null;
         }
-        Debug.Log("Red player has finished setting");
-        Debug.Log("Blue player has started setting");
+        //Debug.Log("Red player has finished setting");
+        //Debug.Log("Blue player has started setting");
         //Check if Blue player is setting up board
         while (IsPlayerSetting(mPieceManager.mBluePieces))
         {
             //Debug.Log("Player two is setting up his board");
             yield return null;
         }
-        Debug.Log("Blue Player has finished setting");
+        //Debug.Log("Blue Player has finished setting");
+
     }
 
     private IEnumerator GamePlaying()
     {
 
-        while (1 > 0) {
-            //Debug.Log("Game is currently playing");
+        
+        while (!IsOneKingAlive()) {
+            Debug.Log("Game is currently playing");
             yield return null;
         }
-        //Debug.Log("Game is done");
+        Debug.Log(mWinnerMessage);
+        mPieceManager.SetInteractive(mPieceManager.mBluePieces, false);
+        mPieceManager.SetInteractive(mPieceManager.mRedPieces, false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 

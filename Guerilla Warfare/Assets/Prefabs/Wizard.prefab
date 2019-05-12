@@ -87,3 +87,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349d0b5142569e340b599a96277ea5a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+  mPieceColor: {r: 0, g: 0, b: 0, a: 1}
+  mMaxNum: 0

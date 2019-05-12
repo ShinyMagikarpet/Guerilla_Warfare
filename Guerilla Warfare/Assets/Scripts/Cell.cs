@@ -7,13 +7,12 @@ using UnityEngine.EventSystems;
 public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
 
-
+    
     public Image mOutlineImage;
     public Vector2Int mBoardPosition = Vector2Int.zero;
     public Board mBoard = null;
     public RectTransform mRectTransform = null;
     public BasePiece mCurrentPiece = null;
-    [SerializeField]
     protected PieceManager mPieceManager;
 
     public void Setup_Cell(Vector2Int newBoardPosition, Board newBoard, PieceManager pieceManager) {
@@ -27,21 +26,15 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         mCurrentPiece = Instantiate(mCurrentPiece, transform);
         mCurrentPiece.GetComponent<RectTransform>().position = mRectTransform.position;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+    public void Remove_Piece() {
+        if(mCurrentPiece != null) {
+            mCurrentPiece.Kill();
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
         mOutlineImage.gameObject.SetActive(true);
-        //Debug.Log(gameObject.name);
     }
 
     public void OnPointerExit(PointerEventData eventData) {

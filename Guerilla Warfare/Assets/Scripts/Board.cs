@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum CellState {
+    None,
+    Friendly,
+    Enemy,
+    Open,
+    OutOfBounds
+}
+
 public class Board : MonoBehaviour
 {
 
@@ -25,12 +33,11 @@ public class Board : MonoBehaviour
                 GameObject newCell = Instantiate(mCellPrefab, transform);
 
                 RectTransform rectTRansform = newCell.GetComponent<RectTransform>();
-                rectTRansform.anchoredPosition = new Vector2((x * 100) + 50, (y * 100) + 50);
+                rectTRansform.anchoredPosition = new Vector2((x * 100) + 100, (y * 100) + 50);
 
                 mAllCells[x, y] = newCell.GetComponent<Cell>();
                 mAllCells[x, y].Setup_Cell(new Vector2Int(x, y), this, mPieceManager);
                 mAllCells[x, y].name = colomnLetter.ToString() + rowNum.ToString();
-                //Debug.Log(mAllCells[x, y].name);
 
             }
 
@@ -47,16 +54,29 @@ public class Board : MonoBehaviour
                 mAllCells[finalX, y].GetComponent<Image>().color = new Color32(180, 180, 180, 255);
             }
         }
-    }
 
-    void Start()
-    {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public CellState Get_Cell_State(BasePiece piece, int targetX, int targetY) {
+
+        if (targetX > 11 || targetX < 0)
+            return CellState.OutOfBounds;
+
+        if (targetY > 11 || targetY < 0)
+            return CellState.OutOfBounds;
+
+        Cell targetCell = mAllCells[targetX, targetY];
+
+        if(targetCell.mCurrentPiece != null) {
+
+            if (piece.mPieceColor == targetCell.mCurrentPiece.mPieceColor)
+                return CellState.Friendly;
+            else
+                return CellState.Enemy;
+        }
+
+        return CellState.Open;
+
     }
 }
