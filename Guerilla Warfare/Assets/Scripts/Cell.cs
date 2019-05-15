@@ -34,17 +34,17 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        mOutlineImage.gameObject.SetActive(true);
+        //mOutlineImage.gameObject.SetActive(true);
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-        mOutlineImage.gameObject.SetActive(false);
+        //mOutlineImage.gameObject.SetActive(false);
     }
 
     public void OnPointerClick(PointerEventData eventData) {
 
 
-        mPieceManager.mRedManaCount--;
+        
 
         //Not setting up piece manually anymore
         //if(mCurrentPiece != null) {

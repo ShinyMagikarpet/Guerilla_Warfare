@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, IEndDragHandler
+public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
 
     [SerializeField]
     private Cell mCurrentCell;
     RectTransform mRectTransform;
     public Color mPieceColor;
-    protected PieceManager mPieceManager;
+    public PieceManager mPieceManager;
 
     public int mMaxNum;
     [HideInInspector]
@@ -131,6 +131,22 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
             cell.mOutlineImage.gameObject.SetActive(false);
         }
         mSelectedCells.Clear();
+
+    }
+
+    public void OnPointerClick(PointerEventData eventData) {
+
+        if (mPieceManager.mSelectedPiece == null) {
+            mPieceManager.mSelectedPiece = this;
+            Pathing();
+            ShowCells();
+        } 
+        else {
+            mPieceManager.mSelectedPiece.ClearPath();
+            mPieceManager.mSelectedPiece = this;
+            Pathing();
+            ShowCells();
+        }
 
     }
 

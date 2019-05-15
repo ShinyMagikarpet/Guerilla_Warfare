@@ -22,6 +22,8 @@ public class PieceManager : MonoBehaviour
     public BasePiece mKingPiece;
     public BasePiece mBarricadePiece;
 
+    public BasePiece mSelectedPiece;
+
     //This will be used to preset the board
     //Will have to make x and y switch here to make it look nice
     private string[,] mRedPiecePlacement = new string[4, 12] {
@@ -179,6 +181,7 @@ public class PieceManager : MonoBehaviour
         SetInteractive(mRedPieces, !isBlueTeamTurn);
         
     }
+
 
 
 
