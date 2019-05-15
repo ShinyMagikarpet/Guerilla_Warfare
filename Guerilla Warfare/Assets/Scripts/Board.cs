@@ -15,6 +15,7 @@ public class Board : MonoBehaviour
 {
 
     public GameObject mCellPrefab;
+    [HideInInspector]
     public PieceManager mPieceManager;
 
     public Cell[,] mAllCells = new Cell[12, 12];

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,11 +9,14 @@ public class GameManager : MonoBehaviour
     public Board mBoard;
     public PieceManager mPieceManager;
 
+    public Image mPlayerMana;
+
+    public Image[] mRedPlayerMana = new Image[5];
+    public Image[] mBluePlayerMana = new Image[5];
+
     private BasePiece mSelectedPiece;
 
-    private int mBluePlayerMana;
-    private int mRedPlayerMana;
-
+    public Text mWinnerText;
     private string mWinnerMessage;
 
 
@@ -73,6 +77,19 @@ public class GameManager : MonoBehaviour
     {
         mBoard.Create(mPieceManager);
         mPieceManager.Setup_Board(mBoard);
+
+        int i;
+        for(i = 0; i < mRedPlayerMana.Length; i++) {
+            mRedPlayerMana[i] = Instantiate(mPlayerMana, transform);
+            mRedPlayerMana[i].color = Color.red;
+            mRedPlayerMana[i].rectTransform.position += new Vector3(40 * i, 200, 0);
+            mRedPlayerMana[i].enabled = false;
+            mBluePlayerMana[i] = Instantiate(mPlayerMana, transform);
+            mBluePlayerMana[i].color = Color.blue;
+            mBluePlayerMana[i].rectTransform.position += new Vector3(40 * i, -200, 0);
+            mBluePlayerMana[i].enabled = false;
+        }
+
         
         StartCoroutine(GameLoop());
     }
@@ -116,7 +133,6 @@ public class GameManager : MonoBehaviour
     private IEnumerator GamePlaying()
     {
 
-        
         while (!IsOneKingAlive()) {
             Debug.Log("Game is currently playing");
             yield return null;
@@ -129,6 +145,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        for(int i = 0; i < 5; i++) {
+            mRedPlayerMana[i].enabled = mPieceManager.mRedManaCount > i ? true : false;
+            mBluePlayerMana[i].enabled = mPieceManager.mBlueManaCount > i ? true : false;
+        }
 
     }
 

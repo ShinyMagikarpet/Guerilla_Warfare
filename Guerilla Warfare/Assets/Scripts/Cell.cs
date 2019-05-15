@@ -43,6 +43,9 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void OnPointerClick(PointerEventData eventData) {
 
+
+        mPieceManager.mRedManaCount--;
+
         //Not setting up piece manually anymore
         //if(mCurrentPiece != null) {
         //    Debug.Log("This cell already contains a piece");

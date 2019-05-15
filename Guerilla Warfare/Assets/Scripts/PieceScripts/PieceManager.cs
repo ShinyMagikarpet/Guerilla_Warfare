@@ -12,14 +12,15 @@ public class PieceManager : MonoBehaviour
     [HideInInspector]
     public List<BasePiece> mBluePieces = null;
 
+    public Image mana;
+
+    public int mBlueManaCount = 0, mRedManaCount = 0;
+
     public BasePiece mWarriorPiece;
     public BasePiece mArcherPiece;
     public BasePiece mWizardPiece;
     public BasePiece mKingPiece;
     public BasePiece mBarricadePiece;
-
-    [HideInInspector]
-    public Color mPlayerColor;
 
     //This will be used to preset the board
     //Will have to make x and y switch here to make it look nice
@@ -51,6 +52,8 @@ public class PieceManager : MonoBehaviour
 
         Place_Pieces(0, mBluePieces, board, true);
         Place_Pieces(8, mRedPieces, board, false);
+
+        SwitchSides(Color.red);
 
     }
 
@@ -108,8 +111,8 @@ public class PieceManager : MonoBehaviour
         } 
         else { 
 
-            for (i = pieces.Count; i > 0; i--) {
-                pieces[i-1].Place_Piece(board.mAllCells[pieces[i-1].mCellLocation.x, pieces[i-1].mCellLocation.y + startRow]);
+            for (i = 0; i < pieces.Count; i++) {
+                pieces[i].Place_Piece(board.mAllCells[pieces[i].mCellLocation.x, pieces[i].mCellLocation.y + startRow]);
             }
         }
         
@@ -160,25 +163,23 @@ public class PieceManager : MonoBehaviour
 
         bool isBlueTeamTurn;
 
-        if (teamColor == Color.red)
+        if (teamColor == Color.red) {
             isBlueTeamTurn = true;
-        else
+            if(mBlueManaCount < 5)
+                mBlueManaCount++;
+        } else {
             isBlueTeamTurn = false;
-
-        foreach(BasePiece piece in mBluePieces) {
-            Debug.Log(piece.mPieceColor);
+            if(mRedManaCount < 5)
+                mRedManaCount++;
         }
+        Debug.Log("Blue player has " + mBlueManaCount + " mana.");    
+        Debug.Log("Red player has " + mRedManaCount + " mana.");    
+
         SetInteractive(mBluePieces, isBlueTeamTurn);
         SetInteractive(mRedPieces, !isBlueTeamTurn);
         
     }
 
-   
-
-    void Start()
-    {
-
-    }
 
 
 }
