@@ -7,12 +7,15 @@ using UnityEngine.EventSystems;
 public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 
+    [SerializeField]
     private Cell mCurrentCell;
     RectTransform mRectTransform;
     public Color mPieceColor;
     protected PieceManager mPieceManager;
 
     public int mMaxNum;
+    [HideInInspector]
+    public Vector2Int mCellLocation;
 
     protected Vector3Int mMove = Vector3Int.one;
     protected Vector3Int mSpecialMove = Vector3Int.one;

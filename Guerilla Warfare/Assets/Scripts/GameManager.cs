@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         mBoard.Create(mPieceManager);
+        mPieceManager.Setup_Board(mBoard);
         
         StartCoroutine(GameLoop());
     }
