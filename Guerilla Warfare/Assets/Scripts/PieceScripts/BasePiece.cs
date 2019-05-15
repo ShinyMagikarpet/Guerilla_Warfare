@@ -11,7 +11,7 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
     RectTransform mRectTransform;
     public Color mPieceColor;
     protected PieceManager mPieceManager;
-    [HideInInspector]
+
     public int mMaxNum;
 
     protected Vector3Int mMove = Vector3Int.one;

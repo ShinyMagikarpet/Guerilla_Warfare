@@ -79,7 +79,8 @@ public class GameManager : MonoBehaviour
     private IEnumerator GameLoop()
     {
         // Player set up their side of the board First
-        yield return StartCoroutine(SetupPhase());
+        //Not being used anymore
+       // yield return StartCoroutine(SetupPhase());
 
         // Game is finished and start ending the game
         yield return StartCoroutine(GamePlaying());

@@ -43,16 +43,17 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void OnPointerClick(PointerEventData eventData) {
 
-        if(mCurrentPiece != null) {
-            Debug.Log("This cell already contains a piece");
-            return;
-        }
+        //Not setting up piece manually anymore
+        //if(mCurrentPiece != null) {
+        //    Debug.Log("This cell already contains a piece");
+        //    return;
+        //}
 
-        if (mBoardPosition.y < 4) {
-            mPieceManager.Place_Piece(this, Color.blue, new Color32(0, 0, 255, 255), mPieceManager);
-        } else if(mBoardPosition.y > 7) {
-            mPieceManager.Place_Piece(this, Color.red, new Color32(255, 0, 0, 255), mPieceManager);
-        }
+        //if (mBoardPosition.y < 4) {
+        //    mPieceManager.Place_Piece(this, Color.blue, new Color32(0, 0, 255, 255), mPieceManager);
+        //} else if(mBoardPosition.y > 7) {
+        //    mPieceManager.Place_Piece(this, Color.red, new Color32(255, 0, 0, 255), mPieceManager);
+        //}
 
     }
 }

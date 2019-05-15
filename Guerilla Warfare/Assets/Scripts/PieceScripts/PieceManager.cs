@@ -21,27 +21,29 @@ public class PieceManager : MonoBehaviour
     [HideInInspector]
     public Color mPlayerColor;
 
-    private BasePiece mSelectedPiece;
+    //This will be used to preset the board
+    private string[] mPiecePlacement = new string[48] {
+
+        "W", "B", "A", "A", "W", "B", "B", " ", " ", "A", " ", "W",
+        " ", "W", " ", "B", "W", " ", "A", "B", "WI", "W", " ", " ",
+        "B", "B", " ", "A", " ", "B", " ", " ", " ", " ", "A", " ",
+        " ", " ", "WI", "B", "K", "A", " ", "B", " ", "WI", " ", " "
+
+    };
+
+
+    public void Setup_Board() {
+
+    }
 
     public void Place_Piece(Cell cell, Color teamColor, Color32 spriteColor, PieceManager pieceManager) {
-        int count = 0;
 
         if (teamColor == Color.red) {
-            count = Get_Piece_Count(mRedPieces, mSelectedPiece);
-            if(count >= mSelectedPiece.mMaxNum) {
-                Debug.Log("You have maximum amount of this piece");
-                return;
-            }
             BasePiece newPiece = Instantiate(mSelectedPiece, transform);
             newPiece.Setup_Piece(teamColor, spriteColor, this);
             newPiece.Place_Piece(cell);
             mRedPieces.Add(newPiece);
         } else if(teamColor == Color.blue){
-            count = Get_Piece_Count(mBluePieces, mSelectedPiece);
-            if (count >= mSelectedPiece.mMaxNum) {
-                Debug.Log("You have maximum amount of this piece");
-                return;
-            }
             BasePiece newPiece = Instantiate(mSelectedPiece, transform);
             newPiece.Setup_Piece(teamColor, spriteColor, this);
             newPiece.Place_Piece(cell);
@@ -50,6 +52,7 @@ public class PieceManager : MonoBehaviour
         
     }
 
+    //Skipping setup phase as I now learnt that I just have to show the core concept of game
     private int Get_Piece_Count(List<BasePiece> listPieces, BasePiece pieceType) {
         int count = 0;
         foreach(BasePiece piece in listPieces) {
@@ -88,37 +91,10 @@ public class PieceManager : MonoBehaviour
         
     }
 
-    public void Select_Warrior() {
-
-        mSelectedPiece = mWarriorPiece;
-        
-    }
-
-    public void Select_Archer() {
-        Debug.Log("Archer is selected");
-        mSelectedPiece = mArcherPiece;
-    }
-
-    public void Select_Wizard() {
-        Debug.Log("Wizard is selected");
-        mSelectedPiece = mWizardPiece;
-    }
-
-    public void Select_King() {
-        Debug.Log("King is selected");
-        mSelectedPiece = mKingPiece;
-    }
-
-    public void Select_Barricade() {
-        Debug.Log("Barricade is selected");
-        mSelectedPiece = mBarricadePiece;
-    }
+   
 
     void Start()
     {
-
-        //Set Warrior by Default
-        mSelectedPiece = mWarriorPiece;
 
     }
 

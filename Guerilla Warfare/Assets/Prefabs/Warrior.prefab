@@ -91,4 +91,4 @@ MonoBehaviour:
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
   mPieceColor: {r: 1, g: 0, b: 0, a: 1}
-  mMaxNum: 0
+  mMaxNum: 6
