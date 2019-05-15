@@ -8,6 +8,7 @@ public enum CellState {
     Friendly,
     Enemy,
     Open,
+    NoMansLand,
     OutOfBounds
 }
 
@@ -19,6 +20,18 @@ public class Board : MonoBehaviour
     public PieceManager mPieceManager;
 
     public Cell[,] mAllCells = new Cell[12, 12];
+
+
+    public Sprite mNoMansLandSprite;
+
+    private string[,] mNoMansLandMap = new string[4, 12] {
+
+        { "x", "x", " ", " ", " ", " ", " ", " ", " ", " ", "x", "x" },
+        { "x", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "x" },
+        { "x", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "x" },
+        { "x", "x", " ", " ", " ", " ", " ", " ", " ", " ", "x", "x" }
+
+    };
 
     public void Create(PieceManager pieceManager) {
 
@@ -53,7 +66,25 @@ public class Board : MonoBehaviour
                 int finalX = x + offset;
 
                 mAllCells[finalX, y].GetComponent<Image>().color = new Color32(180, 180, 180, 255);
+
+
             }
+        }
+
+
+        //Need to do a seperate loop to setup no man's land
+        for(int y = 0; y < 4; y++) {
+
+            for(int x = 0; x < 12; x++) {
+
+                if(mNoMansLandMap[y,x] == "x") {
+                    mAllCells[x, y + 4].GetComponent<Image>().sprite = mNoMansLandSprite;
+                }
+                    
+                                    
+
+            }
+
         }
 
         
@@ -75,6 +106,10 @@ public class Board : MonoBehaviour
                 return CellState.Friendly;
             else
                 return CellState.Enemy;
+        }
+
+        if(targetCell.GetComponent<Image>().sprite == mNoMansLandSprite) {
+            return CellState.NoMansLand;
         }
 
         return CellState.Open;

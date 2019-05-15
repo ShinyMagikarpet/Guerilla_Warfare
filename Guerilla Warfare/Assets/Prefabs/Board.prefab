@@ -89,3 +89,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mCellPrefab: {fileID: 6140614125493381721, guid: 6ca07b41362ab2d48b4668a2ea061ff4,
     type: 3}
+  mPieceManager: {fileID: 0}
