@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour
                 if (king.mIsAlive)
                     aliveCount++;
                 else {
-                    mWinnerMessage = "Red has won!";
+                    mWinnerMessage = "Red Player ";
+                    mWinnerText.color = Color.red;
                     break;
                 }
                     
@@ -57,7 +58,8 @@ public class GameManager : MonoBehaviour
                 if (king.mIsAlive)
                     aliveCount++;
                 else {
-                    mWinnerMessage = "Blue has won!";
+                    mWinnerMessage = "Blue Player ";
+                    mWinnerText.color = Color.blue;
                     break;
                 }
                     
@@ -137,7 +139,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("Game is currently playing");
             yield return null;
         }
-        Debug.Log(mWinnerMessage);
+        mWinnerText.text = mWinnerMessage + " Wins!";
+        mWinnerText.enabled = true;
         mPieceManager.SetInteractive(mPieceManager.mBluePieces, false);
         mPieceManager.SetInteractive(mPieceManager.mRedPieces, false);
     }
