@@ -25,6 +25,7 @@ public class PieceManager : MonoBehaviour
     public BasePiece mSelectedPiece;
 
     public bool mSpecialActivated = false;
+    public bool mSpecialUsed = false;
 
     //This will be used to preset the board
     //Will have to make x and y switch here to make it look nice
@@ -185,9 +186,37 @@ public class PieceManager : MonoBehaviour
     }
 
     public void Special_Activate() {
-        mSpecialActivated = mSpecialActivated ? false : true;
-        Debug.Log(mSpecialActivated);
-    }
 
+        if (mSelectedPiece == null) return;
+
+        if(mSelectedPiece.mPieceColor == Color.red) {
+
+            if(mRedManaCount >= mSelectedPiece.mSpecialCost) {
+                mSpecialActivated = mSpecialActivated = true;
+                mRedManaCount -= mSelectedPiece.mSpecialCost;
+                if(mSelectedPiece.GetType() == typeof(Archer)) {
+                    mSelectedPiece.Special_Move();
+                }
+                if (mSelectedPiece.mSelectedCells.Count == 0)
+                    return;
+                return;
+            }
+
+        } 
+        else {
+            if (mBlueManaCount >= mSelectedPiece.mSpecialCost) {
+                if (mSelectedPiece.GetType() == typeof(Archer)) {
+                    mSelectedPiece.Special_Move();
+                }
+                if (mSelectedPiece.mSelectedCells.Count == 0)
+                    return;
+                mSpecialActivated = true;
+                mBlueManaCount -= mSelectedPiece.mSpecialCost;
+                return;
+            }
+        }
+
+        mSpecialActivated = false;
+    }
 
 }

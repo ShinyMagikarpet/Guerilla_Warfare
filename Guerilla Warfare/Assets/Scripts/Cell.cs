@@ -44,7 +44,40 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     public void OnPointerClick(PointerEventData eventData) {
 
 
-        
+        if (mPieceManager.mSpecialActivated && mPieceManager.mSelectedPiece.GetType() == typeof(Archer)) {
+
+            
+
+            foreach (Cell cell in mPieceManager.mSelectedPiece.mSelectedCells) {
+
+                //Check if mouse is hovering over a rect tranform of a cell from selected cells and set the target to that cell
+                if (RectTransformUtility.RectangleContainsScreenPoint(cell.mRectTransform, Input.mousePosition)) {
+                    mPieceManager.mSelectedPiece.mTargetCell = cell;
+                    break;
+                }
+
+                mPieceManager.mSelectedPiece.mTargetCell = null;
+            }
+
+            if (mPieceManager.mSelectedPiece.mTargetCell.mCurrentPiece.mPieceColor != mPieceManager.mSelectedPiece.mPieceColor) {
+                mPieceManager.mSelectedPiece.mTargetCell.Remove_Piece();
+                mPieceManager.mSelectedPiece.mTargetCell = null;
+            }
+
+            foreach (Cell cell in mPieceManager.mSelectedPiece.mSelectedCells) {
+
+                if (cell.mCurrentPiece)
+                    cell.mCurrentPiece.GetComponent<Image>().raycastTarget = true;
+            }
+
+            mPieceManager.mSelectedPiece.ClearPath();
+            mPieceManager.SwitchSides(mPieceManager.mSelectedPiece.mPieceColor);
+            mPieceManager.mSpecialActivated = false;
+            mPieceManager.mSpecialUsed = false;
+            mPieceManager.mSelectedPiece = null;
+            
+            return;
+        }
 
         //Not setting up piece manually anymore
         //if(mCurrentPiece != null) {

@@ -18,10 +18,10 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
     public Vector2Int mCellLocation;
 
     protected Vector3Int mMove = Vector3Int.one;
-    protected int mSpecialCost;
-    protected List<Cell> mSelectedCells = new List<Cell>();
+    public int mSpecialCost;
+    public List<Cell> mSelectedCells = new List<Cell>();
 
-    Cell mTargetCell;
+    public Cell mTargetCell;
 
     public virtual void Setup_Piece(Color teamColor, Color32 spriteColor, PieceManager pieceManager) {
 
@@ -67,10 +67,10 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
 
     }
 
-    public virtual void Special_Move(Color teamColor) {
+    public virtual void Special_Move() {
+
 
         
-
     }
 
     public void CreatePath(int xDirection, int yDirection, int movement) {
@@ -142,6 +142,8 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
 
     public void OnPointerClick(PointerEventData eventData) {
 
+        if (mPieceManager.mSpecialUsed || mPieceManager.mSpecialActivated) return;
+
         if (mPieceManager.mSelectedPiece == null) {
             mPieceManager.mSelectedPiece = this;
             Pathing();
@@ -158,13 +160,17 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
 
     public void OnBeginDrag (PointerEventData eventData) {
         //Highlight the spaces that the piece can move to
-
+        if (mPieceManager.mSpecialActivated || mPieceManager.mSpecialUsed) return;
         Pathing();
         ShowCells();
         
     }
 
     public void OnDrag(PointerEventData eventData) {
+
+        if (this != mPieceManager.mSelectedPiece && mPieceManager.mSpecialUsed) return;
+        if (this != mPieceManager.mSelectedPiece && mPieceManager.mSpecialActivated) return;
+
 
         //Prevent player from dragging pieces that aren't meant to move
         if (mMove == Vector3Int.zero)
@@ -174,7 +180,8 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
         transform.position = eventData.position;
 
         foreach(Cell cell in mSelectedCells) {
-
+            
+            //Check if mouse is hovering over a rect tranform of a cell from selected cells and set the target to that cell
             if (RectTransformUtility.RectangleContainsScreenPoint(cell.mRectTransform, Input.mousePosition)) {
                 mTargetCell = cell;
                 break;
@@ -192,13 +199,25 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
             Reset_To_Current_Cell();
         } 
         else if (mPieceManager.mSpecialActivated == true) {
-            Debug.Log("Special is used");
-            mPieceManager.SwitchSides(mPieceColor);
+            
+            if(GetType() == typeof(Warrior)) {
+                Move();
+                mPieceManager.mSpecialActivated = false;
+                mPieceManager.mSpecialUsed = true;
+                ClearPath();
+                Pathing();
+                ShowCells();
+
+            }
         }
         else {
             Move();
             mPieceManager.SwitchSides(mPieceColor);
-
+            mPieceManager.mSelectedPiece = null;
+            mPieceManager.mSpecialUsed = false;
         }
+
+        
     }
+
 }
