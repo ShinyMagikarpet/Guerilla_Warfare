@@ -171,6 +171,8 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
         if (this != mPieceManager.mSelectedPiece && mPieceManager.mSpecialUsed) return;
         if (this != mPieceManager.mSelectedPiece && mPieceManager.mSpecialActivated) return;
 
+        if (this == mPieceManager.mSelectedPiece && mPieceManager.mSpecialActivated && GetType() == typeof(Archer)) return;
+
 
         //Prevent player from dragging pieces that aren't meant to move
         if (mMove == Vector3Int.zero)
@@ -192,6 +194,8 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
     }
 
     public void OnEndDrag(PointerEventData eventData) {
+
+        if (this == mPieceManager.mSelectedPiece && mPieceManager.mSpecialActivated && GetType() == typeof(Archer)) return;
 
         ClearPath();
 

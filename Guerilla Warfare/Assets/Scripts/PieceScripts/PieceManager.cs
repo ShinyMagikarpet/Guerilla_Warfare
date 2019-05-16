@@ -192,13 +192,13 @@ public class PieceManager : MonoBehaviour
         if(mSelectedPiece.mPieceColor == Color.red) {
 
             if(mRedManaCount >= mSelectedPiece.mSpecialCost) {
-                mSpecialActivated = mSpecialActivated = true;
-                mRedManaCount -= mSelectedPiece.mSpecialCost;
                 if(mSelectedPiece.GetType() == typeof(Archer)) {
                     mSelectedPiece.Special_Move();
                 }
                 if (mSelectedPiece.mSelectedCells.Count == 0)
                     return;
+                mSpecialActivated = mSpecialActivated = true;
+                mRedManaCount -= mSelectedPiece.mSpecialCost;
                 return;
             }
 
