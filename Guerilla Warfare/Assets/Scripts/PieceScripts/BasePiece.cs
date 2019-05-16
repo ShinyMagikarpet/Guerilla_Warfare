@@ -87,6 +87,12 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
 
             cellState = mCurrentCell.mBoard.Get_Cell_State(this, currentX, currentY);
 
+            if (mPieceManager.mSelectedPiece != null && mPieceManager.mSelectedPiece.GetType() == typeof(Wizard) && mPieceManager.mSpecialActivated) {
+                if (cellState == CellState.OutOfBounds) break;
+                mSelectedCells.Add(mCurrentCell.mBoard.mAllCells[currentX, currentY]);
+                break;
+            }
+
             if(cellState == CellState.Enemy) {
                 mSelectedCells.Add(mCurrentCell.mBoard.mAllCells[currentX, currentY]);
                 break;
@@ -169,10 +175,13 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
     public void OnDrag(PointerEventData eventData) {
 
         if (this != mPieceManager.mSelectedPiece && mPieceManager.mSpecialUsed) return;
-        if (this != mPieceManager.mSelectedPiece && mPieceManager.mSpecialActivated) return;
+
+        //Need to check if wizard if being selected without conflicting above code
+        //if (this != mPieceManager.mSelectedPiece && mPieceManager.mSpecialActivated && GetType() == typeof(Wizard)) return;
 
         if (this == mPieceManager.mSelectedPiece && mPieceManager.mSpecialActivated && GetType() == typeof(Archer)) return;
 
+        Debug.Log("Hello");
 
         //Prevent player from dragging pieces that aren't meant to move
         if (mMove == Vector3Int.zero)
@@ -211,7 +220,6 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
                 ClearPath();
                 Pathing();
                 ShowCells();
-
             }
         }
         else {
@@ -219,6 +227,7 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
             mPieceManager.SwitchSides(mPieceColor);
             mPieceManager.mSelectedPiece = null;
             mPieceManager.mSpecialUsed = false;
+            mPieceManager.mSpecialActivated = false;
         }
 
         

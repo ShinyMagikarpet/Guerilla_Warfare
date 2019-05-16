@@ -192,12 +192,12 @@ public class PieceManager : MonoBehaviour
         if(mSelectedPiece.mPieceColor == Color.red) {
 
             if(mRedManaCount >= mSelectedPiece.mSpecialCost) {
-                if(mSelectedPiece.GetType() == typeof(Archer)) {
+                if(mSelectedPiece.GetType() == typeof(Archer) || mSelectedPiece.GetType() == typeof(Wizard)) {
                     mSelectedPiece.Special_Move();
                 }
                 if (mSelectedPiece.mSelectedCells.Count == 0)
                     return;
-                mSpecialActivated = mSpecialActivated = true;
+                mSpecialActivated = true;
                 mRedManaCount -= mSelectedPiece.mSpecialCost;
                 return;
             }
@@ -205,7 +205,7 @@ public class PieceManager : MonoBehaviour
         } 
         else {
             if (mBlueManaCount >= mSelectedPiece.mSpecialCost) {
-                if (mSelectedPiece.GetType() == typeof(Archer)) {
+                if (mSelectedPiece.GetType() == typeof(Archer) || mSelectedPiece.GetType() == typeof(Wizard)){
                     mSelectedPiece.Special_Move();
                 }
                 if (mSelectedPiece.mSelectedCells.Count == 0)
@@ -216,7 +216,6 @@ public class PieceManager : MonoBehaviour
             }
         }
 
-        mSpecialActivated = false;
     }
 
 }
