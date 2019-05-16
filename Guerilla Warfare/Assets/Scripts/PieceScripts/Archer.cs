@@ -20,6 +20,8 @@ public class Archer : BasePiece
 
         int numEnemies = 0;
 
+        mPieceManager.mSpecialActivated = true;
+
         ClearPath();
         CreatePath(1, 2, 1);
         CreatePath(0, 2, 1);
@@ -38,9 +40,15 @@ public class Archer : BasePiece
         CreatePath(2, 0, 1);
         CreatePath(2, -1, 1);
 
-        foreach(Cell cell in mSelectedCells) {
+        Cell cell;
+        //Loop to check if the cells in archer's range contains a piece
+        for (int i = mSelectedCells.Count - 1; i >= 0; i--) {
+            cell = mSelectedCells[i];
 
-
+            if (cell.mCurrentPiece == null) {
+                mSelectedCells.RemoveAt(i);
+                continue;
+            }
 
             if (cell.mCurrentPiece) {
                 cell.mCurrentPiece.GetComponent<Image>().raycastTarget = false;

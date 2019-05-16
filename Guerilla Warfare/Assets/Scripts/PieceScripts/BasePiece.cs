@@ -65,6 +65,12 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
         mPieceManager.mPieceDrag.mCurrentCell.mCurrentPiece = this;
 
         mPieceManager.mPieceDrag.transform.position = mCurrentCell.transform.position;
+        
+        if(mPieceManager.mPieceDrag.mCurrentCell.GetComponent<Image>().sprite == mCurrentCell.mBoard.mNoMansLandSprite) {
+            Debug.Log("landed in nml");
+            mCurrentCell.mCurrentPiece = null;
+            gameObject.SetActive(false);
+        }
         mPieceManager.mPieceDrag.mTargetCell = null;
 
     }
@@ -215,10 +221,8 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
             //Check if mouse is hovering over a rect tranform of a cell from selected cells and set the target to that cell
             if (RectTransformUtility.RectangleContainsScreenPoint(cell.mRectTransform, Input.mousePosition)) {
                 mPieceManager.mPieceDrag.mTargetCell = cell;
-                Debug.Log(2);
                 break;
             }
-            Debug.Log(1);
             mPieceManager.mPieceDrag.mTargetCell = null;
         }
     }
@@ -235,7 +239,7 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
         } 
         else if (mPieceManager.mSpecialActivated == true) {
             
-            if(GetType() == typeof(Warrior)) {
+            if(mPieceManager.mPieceDrag.GetType() == typeof(Warrior) && mPieceManager.mSelectedPiece.GetType() != typeof(Wizard)) {
                 Move();
                 mPieceManager.mSpecialActivated = false;
                 mPieceManager.mSpecialUsed = true;
@@ -247,7 +251,7 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
             if(mPieceManager.mSelectedPiece.GetType() == typeof(Wizard)) {
                 Move();
                 mPieceManager.mSelectedPiece.mSelectedCells.Clear();
-                mPieceManager.SwitchSides(mPieceColor);
+                mPieceManager.SwitchSides(mPieceManager.mSelectedPiece.mPieceColor);
                 mPieceManager.mSelectedPiece = null;
                 mPieceManager.mSpecialUsed = false;
                 mPieceManager.mSpecialActivated = false;

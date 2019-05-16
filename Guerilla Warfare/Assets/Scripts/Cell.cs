@@ -59,7 +59,14 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                 mPieceManager.mSelectedPiece.mTargetCell = null;
             }
 
-            if (mPieceManager.mSelectedPiece.mTargetCell.mCurrentPiece.mPieceColor != mPieceManager.mSelectedPiece.mPieceColor) {
+            //Remove barricades reguardless of color
+            if(mPieceManager.mSelectedPiece.mTargetCell.mCurrentPiece.GetType() == typeof(Barricade)){
+                mPieceManager.mSelectedPiece.mTargetCell.Remove_Piece();
+                mPieceManager.mSelectedPiece.mTargetCell = null;
+            }
+
+            //if not your team color, kill piece
+            else if (mPieceManager.mSelectedPiece.mTargetCell.mCurrentPiece.mPieceColor != mPieceManager.mSelectedPiece.mPieceColor) {
                 mPieceManager.mSelectedPiece.mTargetCell.Remove_Piece();
                 mPieceManager.mSelectedPiece.mTargetCell = null;
             }
