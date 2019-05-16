@@ -74,6 +74,36 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private bool Any_Removeable_Pieces() {
+
+        int moveableCount = 0;
+
+        foreach(BasePiece piece in mPieceManager.mRedPieces) {
+            if (piece.gameObject.activeSelf && piece.mIsMoveable) {
+                moveableCount++;
+                break;
+            }
+
+            mWinnerMessage = "Red Player ";
+            mWinnerText.color = Color.red;
+
+        }
+
+        foreach (BasePiece piece in mPieceManager.mBluePieces) {
+            if (piece.gameObject.activeSelf && piece.mIsMoveable) {
+                moveableCount++;
+                break;
+            }
+
+            mWinnerMessage = "Blue Player ";
+            mWinnerText.color = Color.blue;
+
+        }
+
+        Debug.Log(moveableCount);
+        return moveableCount >= 2;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -135,7 +165,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator GamePlaying()
     {
 
-        while (!IsOneKingAlive()) {
+        while (!IsOneKingAlive() && Any_Removeable_Pieces()) {
             //Debug.Log("Game is currently playing");
             yield return null;
         }

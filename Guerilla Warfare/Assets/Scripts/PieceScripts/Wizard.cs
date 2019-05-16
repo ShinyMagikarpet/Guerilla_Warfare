@@ -11,6 +11,7 @@ public class Wizard : BasePiece
         base.Setup_Piece(teamColor, spriteColor, pieceManager);
 
         mMaxNum = 3;
+        mIsMoveable = true;
         mMove = new Vector3Int(1, 1, 1);
         mSpecialCost = 4;
     }

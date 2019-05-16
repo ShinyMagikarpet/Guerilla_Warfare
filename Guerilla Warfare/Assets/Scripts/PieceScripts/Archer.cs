@@ -10,6 +10,7 @@ public class Archer : BasePiece
         base.Setup_Piece(teamColor, spriteColor, pieceManager);
 
         mMaxNum = 6;
+        mIsMoveable = true;
         mMove = new Vector3Int(0, 0, 1);
         mSpecialCost = 3;
 

@@ -22,6 +22,7 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
     public List<Cell> mSelectedCells = new List<Cell>();
 
     public Cell mTargetCell;
+    public bool mIsMoveable;
 
 
     public virtual void Setup_Piece(Color teamColor, Color32 spriteColor, PieceManager pieceManager) {

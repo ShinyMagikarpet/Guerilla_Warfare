@@ -11,6 +11,7 @@ public class King : BasePiece
 
         base.Setup_Piece(teamColor, spriteColor, pieceManager);
 
+        mIsMoveable = false;
         mMaxNum = 1;
         mMove = new Vector3Int(0, 0, 0);
         mIsAlive = true;

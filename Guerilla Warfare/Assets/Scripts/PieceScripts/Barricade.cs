@@ -8,6 +8,7 @@ public class Barricade : BasePiece
 
         base.Setup_Piece(teamColor, spriteColor, pieceManager);
 
+        mIsMoveable = false;
         mMaxNum = 10;
         mMove = new Vector3Int(0, 0, 0);
     }
