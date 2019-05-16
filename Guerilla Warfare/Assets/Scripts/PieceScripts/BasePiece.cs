@@ -18,7 +18,7 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
     public Vector2Int mCellLocation;
 
     protected Vector3Int mMove = Vector3Int.one;
-    protected Vector3Int mSpecialMove = Vector3Int.one;
+    protected int mSpecialCost;
     protected List<Cell> mSelectedCells = new List<Cell>();
 
     Cell mTargetCell;
@@ -64,6 +64,12 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
 
         transform.position = mCurrentCell.transform.position;
         mTargetCell = null;
+
+    }
+
+    public virtual void Special_Move(Color teamColor) {
+
+        
 
     }
 
@@ -152,12 +158,17 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
 
     public void OnBeginDrag (PointerEventData eventData) {
         //Highlight the spaces that the piece can move to
+
         Pathing();
         ShowCells();
         
     }
 
     public void OnDrag(PointerEventData eventData) {
+
+        //Prevent player from dragging pieces that aren't meant to move
+        if (mMove == Vector3Int.zero)
+            return;
 
         //Move the Piece
         transform.position = eventData.position;
@@ -179,9 +190,15 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
 
         if(mTargetCell == null) {
             Reset_To_Current_Cell();
-        } else {
+        } 
+        else if (mPieceManager.mSpecialActivated == true) {
+            Debug.Log("Special is used");
+            mPieceManager.SwitchSides(mPieceColor);
+        }
+        else {
             Move();
             mPieceManager.SwitchSides(mPieceColor);
+
         }
     }
 }

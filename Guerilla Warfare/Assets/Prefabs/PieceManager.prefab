@@ -51,6 +51,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mRedPieces: []
   mBluePieces: []
+  mana: {fileID: 0}
+  mBlueManaCount: 0
+  mRedManaCount: 0
   mWarriorPiece: {fileID: 8203494890885584590, guid: 20360013c97c6ed46b95c291a3dbcf16,
     type: 3}
   mArcherPiece: {fileID: 5668908984606204979, guid: ab37e3d7bdcbad7439a3c3f772bc037b,
@@ -61,7 +64,8 @@ MonoBehaviour:
     type: 3}
   mBarricadePiece: {fileID: 2889664728569495093, guid: dfb4278a9fbef30478d92c851596b76f,
     type: 3}
-  mPlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  mSelectedPiece: {fileID: 0}
+  mSpecialActivated: 0
 --- !u!223 &6252716233005762749
 Canvas:
   m_ObjectHideFlags: 0

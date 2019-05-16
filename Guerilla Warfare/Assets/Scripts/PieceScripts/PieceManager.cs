@@ -24,6 +24,8 @@ public class PieceManager : MonoBehaviour
 
     public BasePiece mSelectedPiece;
 
+    public bool mSpecialActivated = false;
+
     //This will be used to preset the board
     //Will have to make x and y switch here to make it look nice
     private string[,] mRedPiecePlacement = new string[4, 12] {
@@ -174,15 +176,18 @@ public class PieceManager : MonoBehaviour
             if(mRedManaCount < 5)
                 mRedManaCount++;
         }
-        Debug.Log("Blue player has " + mBlueManaCount + " mana.");    
-        Debug.Log("Red player has " + mRedManaCount + " mana.");    
+        //Debug.Log("Blue player has " + mBlueManaCount + " mana.");    
+        //Debug.Log("Red player has " + mRedManaCount + " mana.");    
 
         SetInteractive(mBluePieces, isBlueTeamTurn);
         SetInteractive(mRedPieces, !isBlueTeamTurn);
         
     }
 
-
+    public void Special_Activate() {
+        mSpecialActivated = mSpecialActivated ? false : true;
+        Debug.Log(mSpecialActivated);
+    }
 
 
 }

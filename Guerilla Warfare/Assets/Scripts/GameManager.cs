@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
     {
 
         while (!IsOneKingAlive()) {
-            Debug.Log("Game is currently playing");
+            //Debug.Log("Game is currently playing");
             yield return null;
         }
         mWinnerText.text = mWinnerMessage + " Wins!";
