@@ -23,6 +23,7 @@ public class PieceManager : MonoBehaviour
     public BasePiece mBarricadePiece;
 
     public BasePiece mSelectedPiece;
+    public BasePiece mPieceDrag;
 
     public bool mSpecialActivated = false;
     public bool mSpecialUsed = false;

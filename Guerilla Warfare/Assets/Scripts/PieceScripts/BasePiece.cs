@@ -23,6 +23,7 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
 
     public Cell mTargetCell;
 
+
     public virtual void Setup_Piece(Color teamColor, Color32 spriteColor, PieceManager pieceManager) {
 
         mPieceColor = teamColor;
@@ -42,6 +43,7 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
     public void Reset_To_Current_Cell() {
 
         transform.position = mCurrentCell.transform.position;
+        mPieceManager.mPieceDrag = null;
 
     }
 
@@ -55,15 +57,15 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
 
     public void Move() {
 
-        mTargetCell.Remove_Piece();
+        mPieceManager.mPieceDrag.mTargetCell.Remove_Piece();
 
-        mCurrentCell.mCurrentPiece = null;
+        mPieceManager.mPieceDrag.mCurrentCell.mCurrentPiece = null;
 
-        mCurrentCell = mTargetCell;
-        mCurrentCell.mCurrentPiece = this;
+        mPieceManager.mPieceDrag.mCurrentCell = mTargetCell;
+        mPieceManager.mPieceDrag.mCurrentCell.mCurrentPiece = this;
 
-        transform.position = mCurrentCell.transform.position;
-        mTargetCell = null;
+        mPieceManager.mPieceDrag.transform.position = mCurrentCell.transform.position;
+        mPieceManager.mPieceDrag.mTargetCell = null;
 
     }
 
@@ -174,6 +176,20 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
 
     public void OnDrag(PointerEventData eventData) {
 
+
+        if (mPieceManager.mSpecialActivated && mPieceManager.mSelectedPiece.GetType() == typeof(Wizard)) {
+            if (this != mPieceManager.mSelectedPiece) {
+                mPieceManager.mPieceDrag = eventData.pointerDrag.GetComponent<BasePiece>();
+                mSelectedCells = mPieceManager.mSelectedPiece.mSelectedCells;
+                goto MOVE;
+            }
+
+            else
+                return;
+
+        }
+            
+
         if (this != mPieceManager.mSelectedPiece && mPieceManager.mSpecialUsed) return;
 
         //Need to check if wizard if being selected without conflicting above code
@@ -181,24 +197,26 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
 
         if (this == mPieceManager.mSelectedPiece && mPieceManager.mSpecialActivated && GetType() == typeof(Archer)) return;
 
-        Debug.Log("Hello");
+        mPieceManager.mPieceDrag = eventData.pointerDrag.GetComponent<BasePiece>();
 
         //Prevent player from dragging pieces that aren't meant to move
         if (mMove == Vector3Int.zero)
             return;
 
+        MOVE:
         //Move the Piece
-        transform.position = eventData.position;
+        mPieceManager.mPieceDrag.transform.position = eventData.position;
 
         foreach(Cell cell in mSelectedCells) {
             
             //Check if mouse is hovering over a rect tranform of a cell from selected cells and set the target to that cell
             if (RectTransformUtility.RectangleContainsScreenPoint(cell.mRectTransform, Input.mousePosition)) {
-                mTargetCell = cell;
+                mPieceManager.mPieceDrag.mTargetCell = cell;
+                Debug.Log(2);
                 break;
             }
-
-            mTargetCell = null;
+            Debug.Log(1);
+            mPieceManager.mPieceDrag.mTargetCell = null;
         }
     }
 
@@ -210,6 +228,7 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
 
         if(mTargetCell == null) {
             Reset_To_Current_Cell();
+
         } 
         else if (mPieceManager.mSpecialActivated == true) {
             
@@ -221,6 +240,17 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
                 Pathing();
                 ShowCells();
             }
+
+            if(mPieceManager.mSelectedPiece.GetType() == typeof(Wizard)) {
+                Move();
+                mPieceManager.mSelectedPiece.mSelectedCells.Clear();
+                mPieceManager.SwitchSides(mPieceColor);
+                mPieceManager.mSelectedPiece = null;
+                mPieceManager.mSpecialUsed = false;
+                mPieceManager.mSpecialActivated = false;
+                mPieceManager.mPieceDrag = null;
+
+            }
         }
         else {
             Move();
@@ -228,6 +258,7 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
             mPieceManager.mSelectedPiece = null;
             mPieceManager.mSpecialUsed = false;
             mPieceManager.mSpecialActivated = false;
+            mPieceManager.mPieceDrag = null;
         }
 
         

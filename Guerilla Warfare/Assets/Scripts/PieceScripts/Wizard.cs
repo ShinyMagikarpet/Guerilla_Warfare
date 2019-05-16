@@ -12,7 +12,7 @@ public class Wizard : BasePiece
 
         mMaxNum = 3;
         mMove = new Vector3Int(1, 1, 1);
-        mSpecialCost = 4;
+        mSpecialCost = 0;
     }
 
 
