@@ -7,6 +7,7 @@ public enum CellState {
     None,
     Friendly,
     Enemy,
+    Barricade,
     Open,
     NoMansLand,
     OutOfBounds
@@ -101,6 +102,10 @@ public class Board : MonoBehaviour
         Cell targetCell = mAllCells[targetX, targetY];
 
         if(targetCell.mCurrentPiece != null) {
+
+            if(targetCell.mCurrentPiece.GetType() == typeof(Barricade)) {
+                return CellState.Barricade;
+            }
 
             if (piece.mPieceColor == targetCell.mCurrentPiece.mPieceColor)
                 return CellState.Friendly;

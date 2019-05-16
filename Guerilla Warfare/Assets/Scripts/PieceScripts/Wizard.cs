@@ -53,6 +53,7 @@ public class Wizard : BasePiece
 
             if (cell.mCurrentPiece) {
                 numPieces++;
+                cell.mCurrentPiece.enabled = true;
             }
 
         }

@@ -195,10 +195,15 @@ public class PieceManager : MonoBehaviour
             if(mRedManaCount >= mSelectedPiece.mSpecialCost) {
                 if(mSelectedPiece.GetType() == typeof(Archer) || mSelectedPiece.GetType() == typeof(Wizard)) {
                     mSelectedPiece.Special_Move();
+                    if (mSelectedPiece.mSelectedCells.Count == 0)
+                        return;
                 }
-                if (mSelectedPiece.mSelectedCells.Count == 0)
-                    return;
+
                 mSpecialActivated = true;
+                if(mSelectedPiece.GetType() == typeof(Warrior)) {
+                    mSelectedPiece.Pathing();
+                    mSelectedPiece.ShowCells();
+                }
                 mRedManaCount -= mSelectedPiece.mSpecialCost;
                 return;
             }
@@ -208,10 +213,14 @@ public class PieceManager : MonoBehaviour
             if (mBlueManaCount >= mSelectedPiece.mSpecialCost) {
                 if (mSelectedPiece.GetType() == typeof(Archer) || mSelectedPiece.GetType() == typeof(Wizard)){
                     mSelectedPiece.Special_Move();
+                    if (mSelectedPiece.mSelectedCells.Count == 0)
+                        return;
                 }
-                if (mSelectedPiece.mSelectedCells.Count == 0)
-                    return;
                 mSpecialActivated = true;
+                if (mSelectedPiece.GetType() == typeof(Warrior)) {
+                    mSelectedPiece.Pathing();
+                    mSelectedPiece.ShowCells();
+                }
                 mBlueManaCount -= mSelectedPiece.mSpecialCost;
                 return;
             }

@@ -95,6 +95,11 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
                 break;
             }
 
+            if((mPieceManager.mSpecialActivated || mPieceManager.mSpecialUsed) && cellState == CellState.Barricade) {
+                mSelectedCells.Add(mCurrentCell.mBoard.mAllCells[currentX, currentY]);
+                break;
+            }
+
             if(cellState == CellState.Enemy) {
                 mSelectedCells.Add(mCurrentCell.mBoard.mAllCells[currentX, currentY]);
                 break;
@@ -192,8 +197,6 @@ public abstract class BasePiece : EventSystem, IDragHandler, IBeginDragHandler, 
 
         if (this != mPieceManager.mSelectedPiece && mPieceManager.mSpecialUsed) return;
 
-        //Need to check if wizard if being selected without conflicting above code
-        //if (this != mPieceManager.mSelectedPiece && mPieceManager.mSpecialActivated && GetType() == typeof(Wizard)) return;
 
         if (this == mPieceManager.mSelectedPiece && mPieceManager.mSpecialActivated && GetType() == typeof(Archer)) return;
 
